@@ -1,4 +1,3 @@
-
 function format(results) {
   let output = '';
   const lb = '\n';

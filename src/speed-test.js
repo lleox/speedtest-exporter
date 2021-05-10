@@ -1,18 +1,22 @@
 const speedTestNet = require('speedtest-net');
-const eventToPromise = require('event-to-promise');
 
 class SpeedTest {
 
   async run() {
-    let s = speedTestNet();
-    return eventToPromise(s, 'data')
-      .then(data => {
-        return data;
-      })
-      .catch(err => {
-        console.error('_speedTest:error', err);
-        throw err;
-      });
+    const result = await speedTestNet({
+      acceptLicense: true,
+      acceptGdpr: true,
+    });
+
+    return {
+      speeds: {
+        download: (result.download.bandwidth  / 125000).toFixed(2),
+        upload: (result.upload.bandwidth  / 125000).toFixed(2),
+      },
+      server: {
+        ping: result.ping.latency.toFixed(2),
+      }
+    };
   }
 }
 
