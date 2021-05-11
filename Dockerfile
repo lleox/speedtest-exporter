@@ -1,4 +1,4 @@
-FROM arm32v7/node:9.11.1
+FROM arm32v7/node:14.16.1
 
 ARG PORT=9696
 
